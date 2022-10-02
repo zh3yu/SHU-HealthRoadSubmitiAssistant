@@ -28,8 +28,9 @@ TODO
 	[gopkg.in/yaml.v2 v2.4.0](gopkg.in/yaml.v2)
   
   go结构体生成使用
-  **YAML** [@zhwt](https://github.com/Zhwt)[yaml-to-go](https://zhwt.github.io/yaml-to-go/)
-  **JSON** [@zhwt](https://github.com/Zhwt)[json-to-go](https://mholt.github.io/json-to-go/)
+  - **YAML** [@zhwt](https://github.com/Zhwt) [yaml-to-go](https://zhwt.github.io/yaml-to-go/)
+  - **JSON** [@zhwt](https://github.com/Zhwt) [json-to-go](https://mholt.github.io/json-to-go/)
   
-  正则表达式 [@firasdib](https://github.com/firasdib/Regex101)[Regex101](https://regex101.com/)
-  base64解码 @二环同学[base64.us]https://base64.us/
+  其他在线工具使用
+  - 正则表达式 [@firasdib](https://github.com/firasdib/Regex101) [Regex101](https://regex101.com/)
+  - base64解码 @二环同学 [base64.us](https://base64.us/)
