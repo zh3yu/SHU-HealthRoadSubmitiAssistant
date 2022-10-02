@@ -1,6 +1,6 @@
 # 选择基础镜像
 FROM golang:1.17
-
+ENV LANG C.UTF-8
 # 修改使用使用国内代理, 否则会很慢
 RUN set -ex \
 && go env -w GO111MODULE=on \
