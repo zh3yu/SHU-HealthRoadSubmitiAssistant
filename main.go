@@ -10,6 +10,7 @@ import (
 	"selfreport/core/message"
 	"selfreport/core/selfreport"
 	"selfreport/core/tmrreport"
+	"strings"
 	"time"
 
 	"gopkg.in/yaml.v2"
@@ -23,15 +24,15 @@ type CONF struct {
 }
 
 func main() {
-
+	fmt.Println(os.Getwd())
 	ex, err := os.Executable()
 	if err != nil {
 		panic(err)
 	}
 	exPath := filepath.Dir(ex)
-	os.Chdir(exPath)
-
-	fmt.Println(os.Args[0])
+	if !strings.Contains(ex, "exe\\main.exe") {
+		os.Chdir(exPath)
+	}
 	fmt.Println(`本项目仅作为免费的网络研究使用，
 不得利用本程序以任何方式直接或者间接的从事违反中国法律、国际公约以及社会公德的行为，
 ！！！不支持进行虚假填报！！！
