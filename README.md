@@ -30,7 +30,7 @@
 **windows代码编译**
 请确保计算机已经安装go运行环境。使用build.bat即可编译程序。 
 ### 在linux上运行
-**docker**推荐使用
+**docker** (推荐使用)
 
 将项目down到服务器后,将项目打包成REPOSITORY。
 ```
