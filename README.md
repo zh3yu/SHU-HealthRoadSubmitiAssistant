@@ -14,8 +14,22 @@
 每日离校申请，可模拟疫情前的生活，自由出校。
 
 ##使用方法
+TODO
 
 ## 免责声明
 本项目仅作为免费的网络研究使用，
 不得利用本程序以任何方式直接或者间接的从事违反中国法律、国际公约以及社会公德的行为，
 **！！！不支持进行虚假填报！！！**
+
+## 依赖
+	[github.com/PuerkitoBio/goquery v1.8.0](github.com/PuerkitoBio/goquery)
+	[github.com/fogleman/gg v1.3.0](github.com/fogleman/gg)
+	[github.com/json-iterator/go v1.1.12](github.com/json-iterator/go)
+	[gopkg.in/yaml.v2 v2.4.0](gopkg.in/yaml.v2)
+  
+  go结构体生成使用
+  **YAML** [@zhwt](https://github.com/Zhwt)[yaml-to-go](https://zhwt.github.io/yaml-to-go/)
+  **JSON** [@zhwt](https://github.com/Zhwt)[json-to-go](https://mholt.github.io/json-to-go/)
+  
+  正则表达式 [@firasdib](https://github.com/firasdib/Regex101)[Regex101](https://regex101.com/)
+  base64解码 @二环同学[base64.us]https://base64.us/
