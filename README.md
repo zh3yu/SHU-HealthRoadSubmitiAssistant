@@ -63,10 +63,10 @@ crontab -e
 	[github.com/json-iterator/go v1.1.12](github.com/json-iterator/go)
 	[gopkg.in/yaml.v2 v2.4.0](gopkg.in/yaml.v2)
   
-  go结构体生成使用
+  go结构体生成
   - **YAML** [@zhwt](https://github.com/Zhwt) [yaml-to-go](https://zhwt.github.io/yaml-to-go/)
   - **JSON** [@zhwt](https://github.com/Zhwt) [json-to-go](https://mholt.github.io/json-to-go/)
   
-  其他在线工具使用
+  其他在线工具
   - 正则表达式 [@firasdib](https://github.com/firasdib/Regex101) [Regex101](https://regex101.com/)
   - base64解码 @二环同学 [base64.us](https://base64.us/)
