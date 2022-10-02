@@ -24,7 +24,7 @@
 ### win直接运行程序
 右侧下载release，解压后运行。
 **win自动化运行** 
-没有采取[@BlueFisher](https://github.com/BlueFisher/SHU-selfreport)用github Action的方案。考虑到github服务器在国外，有连不上学校网的可能，需要配置openvpn。推荐使用win任务计划程序进行自动化申报。
+没有采取[@BlueFisher](https://github.com/BlueFisher/SHU-selfreport)用github Action的方案。考虑到github服务器在国外，有连不上学校网的可能，需要配置openvpn。推荐使用win任务计划程序进行自动化申报。（程序会查看当天是否填报过，若填报过则不会提交，多次运行是安全的。）
 
 ![服务](image/%E8%87%AA%E5%8A%A8%E4%BB%BB%E5%8A%A1%E6%B5%81%E7%A8%8B1.png)
 
