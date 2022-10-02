@@ -37,8 +37,8 @@
 docker build -t SHUHR:latest . 
 docker run it SHUHR:latest
 ```
-**linux代码编译**
-没有测试，应该也可以。
+~~**linux代码编译**~~
+~~没有测试，应该也可以。~~
 
 **linux自动化运行**
 可用 crontab 进行计划任务。
