@@ -1,9 +1,8 @@
 # 请填入学号和密码
 Users:
-  # - name: "75421307"
-  #   password: UhI4d0hy
-  # - name: "90004561"
-  #   password: X2jRjN2m
-  - name: "20722260"
-    password: Xx8800979
+   - name: "75421307"
+     password: UhI4d0hy
+   - name: "90004561"
+     password: X2jRjN2m
+
 
