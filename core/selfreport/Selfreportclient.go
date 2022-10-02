@@ -6,9 +6,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"image/jpeg"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
+	"os"
 	"regexp"
 	"selfreport/cntime"
 	. "selfreport/core/RedirectClient"
@@ -609,13 +611,17 @@ func (s *SelfReportClient) parseViewState(str string) string {
 
 func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.Time) string {
 	var xingCM = "uKRbPYYUiPOFElNpM2IcVw=="
-	var re = regexp.MustCompile(`(?mU)([\W]([A-Za-z0-9]{22}==)|[\W]([A-Za-z0-9]{11}=))`)
+	var re = regexp.MustCompile(`(?m)(.{22}==)|[\W]([A-Za-z0-9/]{11}=)`)
 	res, _ := s.Client.Get("https://selfreport.shu.edu.cn/DayReport.aspx")
 	body, _ := ioutil.ReadAll(res.Body)
 	code := re.FindStringSubmatch(string(body))
 	if code == nil {
 		fmt.Println("没有找到行程码，正在上传行程码")
-		creatXingCMimage(PhoneNum, t)
+		err := creatXingCMimage(PhoneNum, t)
+		if err != nil {
+			fmt.Println(err, "创建图片失败")
+			return xingCM
+		}
 		contType, Reader, err := prepareImgmultipart(PhoneNum, ViewState)
 		if err != nil {
 			fmt.Println(err, "打开文件失败，使用默认行程码")
@@ -625,7 +631,8 @@ func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.T
 		req.Header.Add("Content-Type", contType)
 		req.Header.Add("X-Requested-With", "XMLHttpRequest")
 		req.Header.Add("X-FineUI-Ajax", "true")
-		res, _ := s.Client.BanRedirectDo(req)
+
+		res, err := s.Client.BanRedirectDo(req)
 		if err != nil {
 			fmt.Println("图片上传失败，使用默认行程码")
 			return xingCM
@@ -633,6 +640,7 @@ func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.T
 		body, _ := ioutil.ReadAll(res.Body)
 		code := re.FindStringSubmatch(string(body))
 		if code == nil {
+			fmt.Println(string(body))
 			fmt.Println("未找到图片，使用默认行程码")
 			return xingCM
 		}
@@ -643,7 +651,7 @@ func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.T
 }
 
 func prepareImgmultipart(PhoneNum string, ViewState string) (string, io.Reader, error) {
-	img, err := ioutil.ReadFile(fmt.Sprintf("Resources/%s.png", PhoneNum))
+	img, err := ioutil.ReadFile(fmt.Sprintf("Resources/%s.jpeg", PhoneNum))
 	if err != nil {
 		return "", nil, err
 	}
@@ -653,7 +661,7 @@ func prepareImgmultipart(PhoneNum string, ViewState string) (string, io.Reader, 
 	fw1.Write([]byte("p1$P_GuoNei$pImages$fileXingCM"))
 	fw2, _ := bw.CreateFormField("__VIEWSTATE")
 	fw2.Write([]byte(ViewState))
-	filew, _ := bw.CreateFormFile("p1$P_GuoNei$pImages$fileXingCM", "fileXingCM")
+	filew, _ := bw.CreateFormFile("p1$P_GuoNei$pImages$fileXingCM", "xingchengma.jpeg")
 	filew.Write(img)
 	bw.Close()
 
@@ -662,13 +670,14 @@ func prepareImgmultipart(PhoneNum string, ViewState string) (string, io.Reader, 
 
 func creatXingCMimage(phoneNum string, t time.Time) error {
 	img, err := gg.LoadJPG("Resources/xingcm.jpg")
-
 	if err != nil {
+		fmt.Println("读取行程码模板错误")
 		return err
 	}
 	context := gg.NewContextForImage(img)
 
 	if err := context.LoadFontFace("Resources/yahei.ttf", 36); err != nil { // 从本地加载字体文件
+		fmt.Println("加载字体文件错误")
 		return err
 	}
 
@@ -678,12 +687,21 @@ func creatXingCMimage(phoneNum string, t time.Time) error {
 	context.DrawString(str, 414-w/2, 380+h/2)
 
 	if err := context.LoadFontFace("Resources/yahei.ttf", 30); err != nil { // 从本地加载字体文件
+		fmt.Println("加载字体文件错误")
 		return err
 	}
 	context.SetRGB255(143, 142, 147)
 	str = "更新于：" + t.Format("2006-01-02 03:04:05")
 	context.DrawString(str, 414-w/2, 460+h/2)
-	context.SavePNG(fmt.Sprintf("Resources/%s.jpeg", phoneNum))
-
+	image := context.Image()
+	p := fmt.Sprintf("Resources/%s.jpeg", phoneNum)
+	f, err := os.OpenFile(p, os.O_SYNC|os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		return err
+	}
+	err = jpeg.Encode(f, image, &jpeg.Options{Quality: 80})
+	if err != nil {
+		return err
+	}
 	return nil
 }
