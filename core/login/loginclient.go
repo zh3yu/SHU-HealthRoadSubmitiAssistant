@@ -139,7 +139,7 @@ func (c *UserClient) LoginPost() error {
 	if find := strings.Contains(string(data), "上海大学统一身份认证"); find {
 		return errors.New(" ：登陆失败，未能跳转到正确页面")
 	}
-	fmt.Println(("登陆成功"))
+	log.Println(("登陆成功"))
 	c.LastRep = rep
 	return nil
 }
@@ -166,7 +166,7 @@ func (c *UserClient) testHome() error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(string(data))
+	log.Println(string(data))
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	dom := doc.Find("input [name: '__VIEWSTATE']")
 	if len(dom.Nodes) != 0 {

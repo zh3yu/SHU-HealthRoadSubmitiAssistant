@@ -1,7 +1,7 @@
 package tmrreport_test
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"selfreport/core"
 	"selfreport/core/login"
@@ -40,7 +40,7 @@ func TestGetCurrentCampus(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Println(ShuoZXQ)
+	log.Println(ShuoZXQ)
 }
 func TestGetViewAndHSJC(t *testing.T) {
 	tmrlient.GetTmrViewstateAndHeSJCInfo()
@@ -57,5 +57,5 @@ func TestGetfstate(t *testing.T) {
 		t.Error(err)
 	}
 	PRI := &tmrreport.PostTmrReportInfo{CurrentCampus: CurrentCampus, ViewState: view_state, Fstatetemplate: tmrlient.GetFstatelxsqtemplate(), HeSJCinfo: HeSJCInfo}
-	fmt.Println(PRI.GetFstate())
+	log.Println(PRI.GetFstate())
 }

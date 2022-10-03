@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"regexp"
 	. "selfreport/core/RedirectClient"
 	"strings"
@@ -38,7 +39,7 @@ func (m *Messageclient) InitMessageHtml() error {
 	}
 	m.MessageHtml = build.String()
 	if err != nil {
-		fmt.Println("获得消息错误")
+		log.Println("获得消息错误")
 		return err
 	}
 	return nil
@@ -70,11 +71,11 @@ func (m *Messageclient) getUrlList() []string {
 	return strlists
 }
 func (m *Messageclient) VisitUrl(urls []string) {
-	fmt.Println("未读的链接为", urls)
+	log.Println("未读的链接为", urls)
 	for _, url := range urls {
 		rep, _ := m.Client.BanRedirectGet(url)
 		ioutil.ReadAll(rep.Body)
-		fmt.Println(url, "已读")
+		log.Println(url, "已读")
 	}
 }
 func (msgclient *Messageclient) VisitUnreadMessage() {

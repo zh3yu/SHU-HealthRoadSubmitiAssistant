@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"selfreport/cntime"
@@ -23,8 +25,25 @@ type CONF struct {
 	} `yaml:"Users"`
 }
 
+func setLogger(file string) (*os.File, error) {
+	f, err := os.OpenFile("log.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, os.ModePerm)
+	if err != nil {
+		return nil, err
+	}
+	multiWriter := io.MultiWriter(os.Stdout, f)
+	log.SetOutput(multiWriter)
+
+	log.SetFlags(log.Ldate | log.Ltime)
+	return f, nil
+}
 func main() {
-	fmt.Println(os.Getwd())
+	f, err := setLogger("log.log")
+	if err != nil {
+		log.Fatal(fmt.Errorf("设置日志流出错", err))
+	}
+	defer f.Close()
+
+	log.Println(os.Getwd())
 	ex, err := os.Executable()
 	if err != nil {
 		panic(err)
@@ -33,7 +52,7 @@ func main() {
 	if !strings.Contains(ex, "exe\\main.exe") {
 		os.Chdir(exPath)
 	}
-	fmt.Println(`本项目仅作为免费的网络研究使用，
+	log.Println(`本项目仅作为免费的网络研究使用，
 不得利用本程序以任何方式直接或者间接的从事违反中国法律、国际公约以及社会公德的行为，
 ！！！不支持进行虚假填报！！！
 	`)
@@ -48,13 +67,13 @@ func main() {
 		panic(fmt.Errorf("yaml解析错误 %v", err))
 	}
 	for _, user := range CONF.Users {
-		fmt.Println(user.Name)
+		log.Println(user.Name)
 		usc := &login.UserClient{}
 		usc.Init(user.Name, user.PassWord) //请填入学号，密码
 		client, err := usc.GetLoginedClient()
 		if err != nil {
-			fmt.Printf("学号%v 登陆错误", user.Name)
-			fmt.Println(err)
+			log.Printf("学号%v 登陆错误", user.Name)
+			log.Println(err)
 			continue
 		}
 		msgclient := &message.Messageclient{Client: client}
@@ -63,15 +82,15 @@ func main() {
 		// 每日一报
 		_, err = srclient.Report(cntime.NowCN())
 		if err != nil {
-			fmt.Printf("学号%v 每日一报错误", user.Name)
-			fmt.Println(err)
+			log.Printf("学号%v 每日一报错误", user.Name)
+			log.Println(err)
 		}
 		// 离校申请
 		tmrlient := &tmrreport.TmrOutClient{Client: client}
 		err = tmrlient.ReportTmrOut()
 		if err != nil {
-			fmt.Printf("学号%v 离校申请错误", user.Name)
-			fmt.Println(err)
+			log.Printf("学号%v 离校申请错误", user.Name)
+			log.Println(err)
 		}
 
 	}

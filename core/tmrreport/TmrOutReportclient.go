@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"mime/multipart"
 	"regexp"
 	"selfreport/cntime"
@@ -145,7 +146,7 @@ func (p *PostTmrReportInfo) GetFstate() string {
 	// ChuXRQ 出校申请时间
 	fstate.PersinfoChuXRQ.Text = cntime.NowCN().Add(24 * time.Hour).Format("2006-01-02")
 	str, _ := json.Marshal(fstate)
-	// fmt.Println(string(str))
+	// log.Println(string(str))
 	encodestate := base64.StdEncoding.EncodeToString(str)
 
 	t := int(len(encodestate) / 2)
@@ -167,7 +168,7 @@ func (s *TmrOutClient) CheakTmrOut() bool {
 	t := cntime.NowCN().Add(24 * time.Hour)
 	res, err := s.Client.BanRedirectGet("https://selfreport.shu.edu.cn/XiaoYJC202207/XueSLXSQ_List.aspx")
 	if err != nil {
-		fmt.Println("获取离校申请表失败")
+		log.Println("获取离校申请表失败")
 		return false
 	}
 	body, _ := ioutil.ReadAll(res.Body)
@@ -176,7 +177,7 @@ func (s *TmrOutClient) CheakTmrOut() bool {
 }
 func (s *TmrOutClient) ReportTmrOut() error {
 	if s.CheakTmrOut() {
-		fmt.Println("当天的离校申请已提交，不需要再次申请")
+		log.Println("当天的离校申请已提交，不需要再次申请")
 		return nil
 	}
 	buf := new(bytes.Buffer)
@@ -206,11 +207,11 @@ func (s *TmrOutClient) ReportTmrOut() error {
 	body, _ := ioutil.ReadAll(res.Body)
 
 	if strings.Contains(string(body), "提交成功") || strings.Contains(string(body), "该日期已申请，不可重复申请") || strings.Contains(string(body), "申请已提交") {
-		fmt.Printf("离校申请Post成功\n")
+		log.Printf("离校申请Post成功\n")
 		return nil
 	} else {
-		fmt.Printf("离校申请Post失败\n")
-		fmt.Println(string(body))
+		log.Printf("离校申请Post失败\n")
+		log.Println(string(body))
 		return errors.New(fmt.Sprintf("离校申请Post失败\n"))
 	}
 
@@ -263,7 +264,7 @@ func (s *TmrOutClient) getTmrViewState(body string) string {
 	var re = regexp.MustCompile(`(?mU)id="__VIEWSTATE" value="([\S\s]*)" \/>`)
 	match := re.FindStringSubmatch(string(body))
 	if len(match) == 0 {
-		fmt.Printf("没有找到ViewState")
+		log.Printf("没有找到ViewState")
 		return ""
 	}
 	retstr = match[1]
@@ -283,10 +284,10 @@ func (s *TmrOutClient) getTmrHeSJC(body string) (*HeSJCinfo, error) {
 		}
 	}
 	if len(matchlist1) == 0 || len(match2) == 0 || len(match3) == 0 {
-		fmt.Println("没有核酸检测信息")
+		log.Println("没有核酸检测信息")
 		return &HeSJCinfo{}, errors.New("没有核酸检测信息")
 	}
-	fmt.Printf(`核酸检测信息：
+	log.Printf(`核酸检测信息：
 		%v
 		%v
 		%v

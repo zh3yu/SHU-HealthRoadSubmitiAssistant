@@ -1,7 +1,7 @@
 package selfreport_test
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"selfreport/cntime"
 	"selfreport/core"
@@ -35,25 +35,25 @@ func TestPostReport(t *testing.T) {
 	// coreInfo = srclient.ParseReportInfo(srclient.GetReportInfo(NowCN()))
 	s := srclient.GetReportInfo(cntime.NowCN().Add(-24 * time.Hour))
 	s2 := srclient.ParseReportInfo(s)
-	fmt.Println(s2)
-	fmt.Println(srclient.PostReport(s2, cntime.NowCN()))
+	log.Println(s2)
+	log.Println(srclient.PostReport(s2, cntime.NowCN()))
 
 }
 
 func TestReportinfo(t *testing.T) {
 	body := srclient.GetReportInfo(cntime.NowCN().Add(-60 * time.Hour * 24))
-	fmt.Println(srclient.ParseReportInfo(body))
+	log.Println(srclient.ParseReportInfo(body))
 	body = srclient.GetReportInfo(cntime.NowCN().Add(-15 * time.Hour * 24))
-	fmt.Println(srclient.ParseReportInfo(body))
+	log.Println(srclient.ParseReportInfo(body))
 
 }
 
 func TestGetPhoneNum(t *testing.T) {
-	fmt.Println(srclient.GetPhoneNum())
+	log.Println(srclient.GetPhoneNum())
 }
 
 func TestGetViewState(t *testing.T) {
-	fmt.Println(srclient.GetViewState(cntime.NowCN()))
+	log.Println(srclient.GetViewState(cntime.NowCN()))
 }
 func TestGetFstateT(t *testing.T) {
 	srclient.GetFstatedaytemplate()
@@ -79,6 +79,6 @@ func cheakInfo(index int) bool {
 
 }
 func TestLogicReport(t *testing.T) {
-	fmt.Println(LogicReport(9), array)
+	log.Println(LogicReport(9), array)
 	//5 [10 9 10 10 3 4 5 5 5 5]
 }

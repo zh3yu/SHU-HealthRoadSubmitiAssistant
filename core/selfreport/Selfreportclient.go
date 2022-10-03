@@ -9,6 +9,7 @@ import (
 	"image/jpeg"
 	"io"
 	"io/ioutil"
+	"log"
 	"mime/multipart"
 	"os"
 	"regexp"
@@ -236,7 +237,7 @@ func (p *PostReportInfo) GetFstate() string {
 	fstate.P1ShiFZJ.SelectedValue = C.ShiFZJ
 	fstate.P1PGuoNeiPImagesHFimgXingCM.Text = p.XingCM
 	str, _ := json.Marshal(fstate)
-	// fmt.Println(string(str))
+	// log.Println(string(str))
 	encodestate := base64.StdEncoding.EncodeToString(str)
 	t := int(len(encodestate) / 2)
 	// + "F_STATE" +
@@ -344,10 +345,10 @@ func (s *SelfReportClient) cheakReportInfo(body []byte, t time.Time) bool {
 	day := t.Day()
 
 	if strings.Contains(string(body), "无指定日期的信息") {
-		fmt.Printf("%v-%v-%v  无填报信息\n", year, mouth, day)
+		log.Printf("%v-%v-%v  无填报信息\n", year, mouth, day)
 		return false
 	} else {
-		fmt.Printf("%v-%v-%v  有填报信息\n", year, mouth, day)
+		log.Printf("%v-%v-%v  有填报信息\n", year, mouth, day)
 		return true
 	}
 }
@@ -395,8 +396,8 @@ func (s *SelfReportClient) ParseReportInfo(body []byte) *CoreInfo {
 		if strings.Contains(info, "BaoSRQ") {
 			BaoSRQ, err := getfromText(info)
 			if err != false {
-				fmt.Print("-BaoSRQ-")
-				fmt.Print(BaoSRQ)
+				log.Print("-BaoSRQ-")
+				log.Print(BaoSRQ)
 			}
 
 		}
@@ -404,23 +405,23 @@ func (s *SelfReportClient) ParseReportInfo(body []byte) *CoreInfo {
 
 			ShiFSH0, err := getfromText(info)
 			if err != false {
-				fmt.Print("-ShiFSH-")
+				log.Print("-ShiFSH-")
 				ShiFSH = ShiFSH0
-				fmt.Print(ShiFSH)
+				log.Print(ShiFSH)
 			}
 
 		}
 		if strings.Contains(info, "JinXXQ") {
 			if strings.Contains(ShiFSH, "不在上海") {
-				fmt.Print("-JinXXQ-")
+				log.Print("-JinXXQ-")
 				JinXXQ = ""
-				fmt.Print(JinXXQ)
+				log.Print(JinXXQ)
 			} else {
 				JinXXQ1, err := getfromText(info)
 				if err != false {
-					fmt.Print("-JinXXQ-")
+					log.Print("-JinXXQ-")
 					JinXXQ = JinXXQ1
-					fmt.Print(JinXXQ)
+					log.Print(JinXXQ)
 				}
 			}
 
@@ -429,23 +430,23 @@ func (s *SelfReportClient) ParseReportInfo(body []byte) *CoreInfo {
 
 			ShiFZX1, err := getfromSelectedValue(info)
 			if err != false {
-				fmt.Print("-ShiFZX-")
+				log.Print("-ShiFZX-")
 				ShiFZX = ShiFZX1
-				fmt.Print(ShiFZX)
+				log.Print(ShiFZX)
 			}
 
 		}
 		if strings.Contains(info, "XiaoQu") {
 			if strings.Contains(ShiFSH, "不在上海") || ShiFZX == "否" {
-				fmt.Print("-XiaoQu-")
+				log.Print("-XiaoQu-")
 				XiaoQu = ""
-				fmt.Print(XiaoQu)
+				log.Print(XiaoQu)
 			} else {
 				XiaoQu1, err := getfromText(info)
 				if err != false {
-					fmt.Print("-XiaoQu-")
+					log.Print("-XiaoQu-")
 					XiaoQu = XiaoQu1
-					fmt.Print(XiaoQu)
+					log.Print(XiaoQu)
 				}
 			}
 
@@ -454,9 +455,9 @@ func (s *SelfReportClient) ParseReportInfo(body []byte) *CoreInfo {
 
 			ddlSheng1, err := getfromSelectedValueArray(info)
 			if err != false {
-				fmt.Print("-ddlSheng-")
+				log.Print("-ddlSheng-")
 				ddlSheng = ddlSheng1
-				fmt.Print(ddlSheng)
+				log.Print(ddlSheng)
 			}
 
 		}
@@ -464,9 +465,9 @@ func (s *SelfReportClient) ParseReportInfo(body []byte) *CoreInfo {
 
 			ddlShi1, err := getfromSelectedValueArray(info)
 			if err != false {
-				fmt.Print("-ddlShi-")
+				log.Print("-ddlShi-")
 				ddlShi = ddlShi1
-				fmt.Print(ddlShi)
+				log.Print(ddlShi)
 			}
 
 		}
@@ -474,38 +475,38 @@ func (s *SelfReportClient) ParseReportInfo(body []byte) *CoreInfo {
 
 			ddlXian1, err := getfromSelectedValueArray(info)
 			if err != false {
-				fmt.Print("-ddlXian-")
+				log.Print("-ddlXian-")
 				ddlXian = ddlXian1
-				fmt.Print(ddlXian)
+				log.Print(ddlXian)
 			}
 
 		}
 		if strings.Contains(info, "ddlJieDao") {
 
 			if strings.Contains(ShiFSH, "不在上海") {
-				fmt.Print("-ddlJieDao-")
+				log.Print("-ddlJieDao-")
 				ddlJieDao = ""
-				fmt.Print(ddlJieDao)
+				log.Print(ddlJieDao)
 			} else {
 				ddlJieDao1, err := getfromSelectedValueArray(info)
 				if err != false {
-					fmt.Print("-ddlJieDao-")
+					log.Print("-ddlJieDao-")
 					ddlJieDao = ddlJieDao1
-					fmt.Print(ddlJieDao)
+					log.Print(ddlJieDao)
 				}
 				if ddlJieDao == "-1" {
-					fmt.Print("-ddlJieDao-")
+					log.Print("-ddlJieDao-")
 					ddlJieDao = "大场镇"
-					fmt.Print(ddlJieDao)
+					log.Print(ddlJieDao)
 				}
 			}
 		}
 		if strings.Contains(info, "XiangXDZ") {
 			ddlXian1, err := getfromText(info)
 			if err != false {
-				fmt.Print("-XiangXDZ-")
+				log.Print("-XiangXDZ-")
 				XiangXDZ = ddlXian1
-				fmt.Print(XiangXDZ)
+				log.Print(XiangXDZ)
 			}
 
 		}
@@ -513,24 +514,24 @@ func (s *SelfReportClient) ParseReportInfo(body []byte) *CoreInfo {
 
 			ShiFZJ1, err := getfromSelectedValue(info)
 			if err != false {
-				fmt.Print("-ShiFZJ-")
+				log.Print("-ShiFZJ-")
 				ShiFZJ = ShiFZJ1
-				fmt.Print(ShiFZJ)
+				log.Print(ShiFZJ)
 			}
 
 		}
 	}
 	if strings.Contains(ShiFSH, "不在") {
-		fmt.Print("-JinXXQ-")
+		log.Print("-JinXXQ-")
 		JinXXQ = ""
-		fmt.Print(JinXXQ)
+		log.Print(JinXXQ)
 	}
 	if strings.Contains(ShiFSH, "不在") || ShiFZX == "否" {
-		fmt.Print("-XiaoQu-")
+		log.Print("-XiaoQu-")
 		XiaoQu = ""
-		fmt.Print(XiaoQu)
+		log.Print(XiaoQu)
 	}
-	fmt.Println("")
+	log.Println("")
 	coreInfo := &CoreInfo{ShiFSH: ShiFSH, JinXXQ: JinXXQ, ShiFZX: ShiFZX,
 		XiaoQu: XiaoQu, ddlSheng: ddlSheng, ddlShi: ddlShi, ddlXian: ddlXian, ddlJieDao: ddlJieDao, XiangXDZ: XiangXDZ, ShiFZJ: ShiFZJ}
 	return coreInfo
@@ -540,7 +541,7 @@ func (s *SelfReportClient) PostReport(coreInfo *CoreInfo, t time.Time) error {
 	bw := multipart.NewWriter(buf)
 	view_state := s.GetViewState(t)
 	phone := s.GetPhoneNum()
-	// fmt.Println(view_state)
+	// log.Println(view_state)
 	xingCM := s.GetXingCM(phone, view_state, t)
 	pri := &PostReportInfo{CoreInfo: coreInfo, ViewState: view_state, Fstatedaytemplate: s.GetFstatedaytemplate(), Time: t, XingCM: xingCM}
 	kvs := pri.GetKvs()
@@ -557,13 +558,13 @@ func (s *SelfReportClient) PostReport(coreInfo *CoreInfo, t time.Time) error {
 		return fmt.Errorf("提交数据失败 %v", err)
 	}
 	body, _ := ioutil.ReadAll(res.Body)
-	// fmt.Println(string(body))
+	// log.Println(string(body))
 	if strings.Contains(string(body), "提交成功") || strings.Contains(string(body), "历史信息不能修改") || strings.Contains(string(body), "现在还没到晚报时间") || strings.Contains(string(body), "只能填报当天或补填以前的信息") {
-		fmt.Printf("每日一报Post%s成功\n", t.Format("2006-01-02"))
+		log.Printf("每日一报Post%s成功\n", t.Format("2006-01-02"))
 		return nil
 	} else {
-		fmt.Printf("每日一报Post%s失败\n", t.Format("2006-01-02"))
-		fmt.Println(string(body))
+		log.Printf("每日一报Post%s失败\n", t.Format("2006-01-02"))
+		log.Println(string(body))
 		return errors.New(fmt.Sprintf("每日一报Post%s失败\n", t.Format("2006-01-02")))
 	}
 
@@ -581,7 +582,7 @@ func (s *SelfReportClient) GetFstatedaytemplate() *F_STATE_DAY {
 	fstateday := new(F_STATE_DAY)
 	fstateFile, err := ioutil.ReadFile("Resources/fstate_day.json")
 	if err != nil {
-		fmt.Println("读取模板失败", err)
+		log.Println("读取模板失败", err)
 	}
 	json.Unmarshal(fstateFile, fstateday)
 	return fstateday
@@ -599,7 +600,7 @@ func (s *SelfReportClient) parseViewState(str string) string {
 	var re = regexp.MustCompile(`(?mU)id="__VIEWSTATE" value="([\S\s]*)" \/>`)
 	matchlist := re.FindAllStringSubmatch(str, -1)
 	if len(matchlist) == 0 {
-		fmt.Printf("没有找到ViewState")
+		log.Printf("没有找到ViewState")
 		return ""
 	}
 	var retstr string
@@ -616,15 +617,15 @@ func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.T
 	body, _ := ioutil.ReadAll(res.Body)
 	code := re.FindStringSubmatch(string(body))
 	if code == nil {
-		fmt.Println("没有找到行程码，正在上传行程码")
+		log.Println("没有找到行程码，正在上传行程码")
 		err := creatXingCMimage(PhoneNum, t)
 		if err != nil {
-			fmt.Println(err, "创建图片失败")
+			log.Println(err, "创建图片失败")
 			return xingCM
 		}
 		contType, Reader, err := prepareImgmultipart(PhoneNum, ViewState)
 		if err != nil {
-			fmt.Println(err, "打开文件失败，使用默认行程码")
+			log.Println(err, "打开文件失败，使用默认行程码")
 			return xingCM
 		}
 		req, _ := NewRequest("POST", "https://selfreport.shu.edu.cn/DayReport.aspx", Reader)
@@ -634,14 +635,14 @@ func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.T
 
 		res, err := s.Client.BanRedirectDo(req)
 		if err != nil {
-			fmt.Println("图片上传失败，使用默认行程码")
+			log.Println("图片上传失败，使用默认行程码")
 			return xingCM
 		}
 		body, _ := ioutil.ReadAll(res.Body)
 		code := re.FindStringSubmatch(string(body))
 		if code == nil {
-			fmt.Println(string(body))
-			fmt.Println("未找到图片，使用默认行程码")
+			log.Println(string(body))
+			log.Println("未找到图片，使用默认行程码")
 			return xingCM
 		}
 		return code[1]
@@ -671,13 +672,13 @@ func prepareImgmultipart(PhoneNum string, ViewState string) (string, io.Reader, 
 func creatXingCMimage(phoneNum string, t time.Time) error {
 	img, err := gg.LoadJPG("Resources/xingcm.jpg")
 	if err != nil {
-		fmt.Println("读取行程码模板错误")
+		log.Println("读取行程码模板错误")
 		return err
 	}
 	context := gg.NewContextForImage(img)
 
 	if err := context.LoadFontFace("Resources/yahei.ttf", 36); err != nil { // 从本地加载字体文件
-		fmt.Println("加载字体文件错误")
+		log.Println("加载字体文件错误")
 		return err
 	}
 
@@ -687,7 +688,7 @@ func creatXingCMimage(phoneNum string, t time.Time) error {
 	context.DrawString(str, 414-w/2, 380+h/2)
 
 	if err := context.LoadFontFace("Resources/yahei.ttf", 30); err != nil { // 从本地加载字体文件
-		fmt.Println("加载字体文件错误")
+		log.Println("加载字体文件错误")
 		return err
 	}
 	context.SetRGB255(143, 142, 147)

@@ -2,7 +2,6 @@ package login_test
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 	"selfreport/core"
@@ -24,7 +23,7 @@ func TestGet(t *testing.T) {
 
 	UserFactory := &login.UserFactory{}
 	user = UserFactory.Get("12345678", "password")
-	fmt.Println(user.Password)
+	log.Println(user.Password)
 	if user.Password[len(user.Password)-1] != '=' {
 		t.Errorf("'错误'")
 	}
@@ -35,7 +34,7 @@ func TestJsonMarshal(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Print(string(bodyBytes))
+	log.Print(string(bodyBytes))
 
 }
 func TestLogin(t *testing.T) {
