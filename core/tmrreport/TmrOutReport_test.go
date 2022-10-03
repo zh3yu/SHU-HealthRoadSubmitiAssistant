@@ -24,6 +24,10 @@ func TestMain(m *testing.M) {
 	os.Exit(retcode)
 }
 
+func TestCheakTmrOut(t *testing.T) {
+	println(tmrlient.CheakTmrOut())
+}
+
 func TestPostTMR(t *testing.T) {
 	err := tmrlient.ReportTmrOut()
 	if err != nil {

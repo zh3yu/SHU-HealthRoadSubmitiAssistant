@@ -163,7 +163,22 @@ type TmrOutClient struct {
 	Client *RedirectClient
 }
 
+func (s *TmrOutClient) CheakTmrOut() bool {
+	t := cntime.NowCN().Add(24 * time.Hour)
+	res, err := s.Client.BanRedirectGet("https://selfreport.shu.edu.cn/XiaoYJC202207/XueSLXSQ_List.aspx")
+	if err != nil {
+		fmt.Println("获取离校申请表失败")
+		return false
+	}
+	body, _ := ioutil.ReadAll(res.Body)
+	HTML := string(body)
+	return strings.Contains(HTML, fmt.Sprintf("日期：%s", t.Format("2006-01-02")))
+}
 func (s *TmrOutClient) ReportTmrOut() error {
+	if s.CheakTmrOut() {
+		fmt.Println("当天的离校申请已提交，不需要再次申请")
+		return nil
+	}
 	buf := new(bytes.Buffer)
 	bw := multipart.NewWriter(buf)
 	CurrentCampus, err := s.GetCurrentCampus()
@@ -198,6 +213,7 @@ func (s *TmrOutClient) ReportTmrOut() error {
 		fmt.Println(string(body))
 		return errors.New(fmt.Sprintf("离校申请Post失败\n"))
 	}
+
 }
 func (s *TmrOutClient) GetFstatelxsqtemplate() *F_STATE_LXSQ {
 	fstate := new(F_STATE_LXSQ)
