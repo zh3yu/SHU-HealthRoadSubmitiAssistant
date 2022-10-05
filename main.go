@@ -23,6 +23,7 @@ type CONF struct {
 		Name     string `yaml:"name"`
 		PassWord string `yaml:"password"`
 	} `yaml:"Users"`
+	TmrOutReport bool `yaml:"TmrOutReport"`
 }
 
 func setLogger(file string) (*os.File, error) {
@@ -85,12 +86,18 @@ func main() {
 			log.Printf("学号%v 每日一报错误", user.Name)
 			log.Println(err)
 		}
-		// 离校申请
-		tmrlient := &tmrreport.TmrOutClient{Client: client}
-		err = tmrlient.ReportTmrOut()
-		if err != nil {
-			log.Printf("学号%v 离校申请错误", user.Name)
-			log.Println(err)
+		if CONF.TmrOutReport {
+			log.Printf("离校申请ON")
+			// 离校申请
+			tmrlient := &tmrreport.TmrOutClient{Client: client}
+			err = tmrlient.ReportTmrOut()
+			if err != nil {
+				log.Printf("学号%v 离校申请错误", user.Name)
+				log.Println(err)
+			}
+
+		} else {
+			log.Printf("离校申请OFF")
 		}
 
 	}
