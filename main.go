@@ -13,7 +13,6 @@ import (
 	"selfreport/core/selfreport"
 	"selfreport/core/tmrreport"
 	"strings"
-	"time"
 
 	"gopkg.in/yaml.v2"
 )
@@ -101,7 +100,13 @@ func main() {
 		}
 
 	}
-
-	time.Sleep(10 * time.Second)
+	c := make(chan []byte)
+	go func(c chan []byte) {
+		b := make([]byte, 1)
+		fmt.Println("输入回车键后退出")
+		os.Stdin.Read(b)
+		c <- b
+	}(c)
+	<-c
 
 }

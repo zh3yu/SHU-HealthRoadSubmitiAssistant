@@ -21,6 +21,200 @@ import (
 	"github.com/fogleman/gg"
 )
 
+type F_STATE_IMAGE struct {
+	P1Tip struct {
+		IFrameAttributes struct {
+		} `json:"IFrameAttributes"`
+	} `json:"p1_Tip"`
+	P1PnlDangSZSDangSZS struct {
+		FItems             []interface{} `json:"F_Items"`
+		SelectedValueArray []interface{} `json:"SelectedValueArray"`
+	} `json:"p1_pnlDangSZS_DangSZS"`
+	P1PnlDangSZS struct {
+		IFrameAttributes struct {
+		} `json:"IFrameAttributes"`
+	} `json:"p1_pnlDangSZS"`
+	P1PQueZXXCengQZ struct {
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_P_QueZXX_CengQZ"`
+	P1PQueZXXQueZDSheng struct {
+		FItems             []interface{} `json:"F_Items"`
+		SelectedValueArray []interface{} `json:"SelectedValueArray"`
+	} `json:"p1_P_QueZXX_QueZD_Sheng"`
+	P1PQueZXXQueZDShi struct {
+		FItems             []interface{} `json:"F_Items"`
+		SelectedValueArray []interface{} `json:"SelectedValueArray"`
+	} `json:"p1_P_QueZXX_QueZD_Shi"`
+	P1PQueZXX struct {
+		IFrameAttributes struct {
+		} `json:"IFrameAttributes"`
+	} `json:"p1_P_QueZXX"`
+	P1BaoSRQ struct {
+		Text string `json:"Text"`
+	} `json:"p1_BaoSRQ"`
+	P1CengFWSS struct {
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_CengFWSS"`
+	P1TuJing202210 struct {
+		FItems             [][]interface{} `json:"F_Items"`
+		SelectedValueArray []interface{}   `json:"SelectedValueArray"`
+	} `json:"p1_TuJing_202210"`
+	P1DangQSTZK struct {
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue string          `json:"SelectedValue"`
+	} `json:"p1_DangQSTZK"`
+	P1ZhengZhuang struct {
+		Hidden             bool            `json:"Hidden"`
+		FItems             [][]interface{} `json:"F_Items"`
+		SelectedValueArray []interface{}   `json:"SelectedValueArray"`
+	} `json:"p1_ZhengZhuang"`
+	P1GuoNei struct {
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue string          `json:"SelectedValue"`
+	} `json:"p1_GuoNei"`
+	P1PGuoNeiShiFSH struct {
+		Hidden        bool            `json:"Hidden"`
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_P_GuoNei_ShiFSH"`
+	P1PGuoNeiJinXXQ struct {
+		FItems             [][]interface{} `json:"F_Items"`
+		SelectedValueArray []interface{}   `json:"SelectedValueArray"`
+	} `json:"p1_P_GuoNei_JinXXQ"`
+	P1PGuoNeiShiFZX struct {
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_P_GuoNei_ShiFZX"`
+	P1PGuoNeiXiaoQu struct {
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_P_GuoNei_XiaoQu"`
+	P1PGuoNeiPImages struct {
+		Hidden           bool `json:"Hidden"`
+		IFrameAttributes struct {
+		} `json:"IFrameAttributes"`
+	} `json:"p1_P_GuoNei_pImages"`
+	P1PGuoNei struct {
+		Hidden           bool `json:"Hidden"`
+		IFrameAttributes struct {
+		} `json:"IFrameAttributes"`
+	} `json:"p1_P_GuoNei"`
+	P1JinChuSQ struct {
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_JinChuSQ"`
+	P1QiuZZT struct {
+		FItems             []interface{} `json:"F_Items"`
+		SelectedValueArray []interface{} `json:"SelectedValueArray"`
+	} `json:"p1_QiuZZT"`
+	P1JiuYKN struct {
+		FItems             []interface{} `json:"F_Items"`
+		SelectedValueArray []interface{} `json:"SelectedValueArray"`
+	} `json:"p1_JiuYKN"`
+	P1JiuYYX struct {
+		Required           bool          `json:"Required"`
+		FItems             []interface{} `json:"F_Items"`
+		SelectedValueArray []interface{} `json:"SelectedValueArray"`
+	} `json:"p1_JiuYYX"`
+	P1JiuYZD struct {
+		FItems             []interface{} `json:"F_Items"`
+		SelectedValueArray []interface{} `json:"SelectedValueArray"`
+	} `json:"p1_JiuYZD"`
+	P1JiuYZL struct {
+		FItems             []interface{} `json:"F_Items"`
+		SelectedValueArray []interface{} `json:"SelectedValueArray"`
+	} `json:"p1_JiuYZL"`
+	P1DdlGuoJia struct {
+		DataTextField      string          `json:"DataTextField"`
+		DataValueField     string          `json:"DataValueField"`
+		FItems             [][]interface{} `json:"F_Items"`
+		SelectedValueArray []string        `json:"SelectedValueArray"`
+	} `json:"p1_ddlGuoJia"`
+	P1DdlSheng struct {
+		FItems             [][]interface{} `json:"F_Items"`
+		SelectedValueArray []string        `json:"SelectedValueArray"`
+	} `json:"p1_ddlSheng"`
+	P1DdlShi struct {
+		Enabled            bool            `json:"Enabled"`
+		FItems             [][]interface{} `json:"F_Items"`
+		SelectedValueArray []string        `json:"SelectedValueArray"`
+	} `json:"p1_ddlShi"`
+	P1DdlXian struct {
+		Enabled            bool            `json:"Enabled"`
+		FItems             [][]interface{} `json:"F_Items"`
+		SelectedValueArray []string        `json:"SelectedValueArray"`
+	} `json:"p1_ddlXian"`
+	P1DdlJieDao struct {
+		Hidden             bool            `json:"Hidden"`
+		FItems             [][]interface{} `json:"F_Items"`
+		SelectedValueArray []string        `json:"SelectedValueArray"`
+	} `json:"p1_ddlJieDao"`
+	P1XiangXDZ struct {
+		Text string `json:"Text"`
+	} `json:"p1_XiangXDZ"`
+	P1ShiFZJ struct {
+		Required      bool            `json:"Required"`
+		Hidden        bool            `json:"Hidden"`
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_ShiFZJ"`
+	P1GaoZDFXLJS struct {
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_GaoZDFXLJS"`
+	P1QueZHZJC struct {
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_QueZHZJC"`
+	P1DangRGL struct {
+		SelectedValue string          `json:"SelectedValue"`
+		FItems        [][]interface{} `json:"F_Items"`
+	} `json:"p1_DangRGL"`
+	P1GeLSM struct {
+		Hidden           bool `json:"Hidden"`
+		IFrameAttributes struct {
+		} `json:"IFrameAttributes"`
+	} `json:"p1_GeLSM"`
+	P1GeLFS struct {
+		Required      bool            `json:"Required"`
+		Hidden        bool            `json:"Hidden"`
+		FItems        [][]interface{} `json:"F_Items"`
+		SelectedValue interface{}     `json:"SelectedValue"`
+	} `json:"p1_GeLFS"`
+	P1GeLDZ struct {
+		Hidden bool `json:"Hidden"`
+	} `json:"p1_GeLDZ"`
+	P1Ctl01BtnReturn struct {
+		OnClientClick string `json:"OnClientClick"`
+	} `json:"p1_ctl01_btnReturn"`
+	P1 struct {
+		Title            string `json:"Title"`
+		IFrameAttributes struct {
+		} `json:"IFrameAttributes"`
+	} `json:"p1"`
+}
+
+type Imageinfo struct {
+	ViewState           string
+	Time                time.Time
+	Fstateimagetemplate *F_STATE_IMAGE
+}
+
+func (p *Imageinfo) GetFstate() string {
+	fstate := p.Fstateimagetemplate
+	// fstate['p1_BaoSRQ']['Text'] = BaoSRQ
+	fstate.P1BaoSRQ.Text = p.Time.Format("2006-01-02")
+	str, _ := json.Marshal(fstate)
+	// log.Println(string(str))
+	encodestate := base64.StdEncoding.EncodeToString(str)
+	t := int(len(encodestate) / 2)
+	// + "F_STATE" +
+	encodestate = encodestate[:t] + encodestate[t:]
+	return encodestate
+}
+
 type F_STATE_DAY struct {
 	P1ChengNuo struct {
 		Checked bool `json:"Checked"`
@@ -578,6 +772,17 @@ func (s *SelfReportClient) GetPhoneNum() string {
 	PhoneNum = match[1]
 	return PhoneNum
 }
+
+func GetFstateimagetemplate() *F_STATE_IMAGE {
+	fstateimage := new(F_STATE_IMAGE)
+	fstateFile, err := ioutil.ReadFile("Resources/fstate_image.json")
+	if err != nil {
+		log.Println("读取模板失败", err)
+	}
+	json.Unmarshal(fstateFile, fstateimage)
+	return fstateimage
+}
+
 func (s *SelfReportClient) GetFstatedaytemplate() *F_STATE_DAY {
 	fstateday := new(F_STATE_DAY)
 	fstateFile, err := ioutil.ReadFile("Resources/fstate_day.json")
@@ -611,7 +816,7 @@ func (s *SelfReportClient) parseViewState(str string) string {
 }
 
 func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.Time) string {
-	var xingCM = "uKRbPYYUiPOFElNpM2IcVw=="
+	var xingCM = "Xtw9cLnyqDla1iypPwrPtQ=="
 	var re = regexp.MustCompile(`(?m)(.{22}==)|[\W]([A-Za-z0-9/]{11}=)`)
 	res, _ := s.Client.Get("https://selfreport.shu.edu.cn/DayReport.aspx")
 	body, _ := ioutil.ReadAll(res.Body)
@@ -623,7 +828,8 @@ func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.T
 			log.Println(err, "创建图片失败")
 			return xingCM
 		}
-		contType, Reader, err := prepareImgmultipart(PhoneNum, ViewState)
+		imageinfo := &Imageinfo{ViewState: ViewState, Time: t, Fstateimagetemplate: GetFstateimagetemplate()}
+		contType, Reader, err := prepareImgmultipart(PhoneNum, imageinfo)
 		if err != nil {
 			log.Println(err, "打开文件失败，使用默认行程码")
 			return xingCM
@@ -632,7 +838,6 @@ func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.T
 		req.Header.Add("Content-Type", contType)
 		req.Header.Add("X-Requested-With", "XMLHttpRequest")
 		req.Header.Add("X-FineUI-Ajax", "true")
-
 		res, err := s.Client.BanRedirectDo(req)
 		if err != nil {
 			log.Println("图片上传失败，使用默认行程码")
@@ -641,8 +846,8 @@ func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.T
 		body, _ := ioutil.ReadAll(res.Body)
 		code := re.FindStringSubmatch(string(body))
 		if code == nil {
-			log.Println(string(body))
 			log.Println("未找到图片，使用默认行程码")
+			log.Println(string(body))
 			return xingCM
 		}
 		return code[1]
@@ -651,7 +856,7 @@ func (s *SelfReportClient) GetXingCM(PhoneNum string, ViewState string, t time.T
 	return xingCM
 }
 
-func prepareImgmultipart(PhoneNum string, ViewState string) (string, io.Reader, error) {
+func prepareImgmultipart(PhoneNum string, imageinfo *Imageinfo) (string, io.Reader, error) {
 	img, err := ioutil.ReadFile(fmt.Sprintf("Resources/%s.jpeg", PhoneNum))
 	if err != nil {
 		return "", nil, err
@@ -661,7 +866,10 @@ func prepareImgmultipart(PhoneNum string, ViewState string) (string, io.Reader, 
 	fw1, _ := bw.CreateFormField("__EVENTTARGET")
 	fw1.Write([]byte("p1$P_GuoNei$pImages$fileXingCM"))
 	fw2, _ := bw.CreateFormField("__VIEWSTATE")
-	fw2.Write([]byte(ViewState))
+	fw2.Write([]byte(imageinfo.ViewState))
+	fw3, _ := bw.CreateFormField("F_STATE")
+	fw3.Write([]byte(imageinfo.GetFstate()))
+	log.Println(imageinfo.GetFstate())
 	filew, _ := bw.CreateFormFile("p1$P_GuoNei$pImages$fileXingCM", "xingchengma.jpeg")
 	filew.Write(img)
 	bw.Close()
