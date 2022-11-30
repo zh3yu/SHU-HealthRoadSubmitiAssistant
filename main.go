@@ -19,10 +19,13 @@ import (
 
 type CONF struct {
 	Users []struct {
-		Name     string `yaml:"name"`
-		PassWord string `yaml:"password"`
+		Name           string `yaml:"name"`
+		PassWord       string `yaml:"password"`
+		TmrOutReport   bool   `yaml:"TmrOutReport"`
+		ChuXiaoReason  string `yaml:"ChuXiaoReason"`
+		AddressQu      string `yaml:"AddressQu"`
+		AddressDetails string `yaml:"AddressDetails"`
 	} `yaml:"Users"`
-	TmrOutReport bool `yaml:"TmrOutReport"`
 }
 
 func setLogger(file string) (*os.File, error) {
@@ -49,7 +52,7 @@ func main() {
 		panic(err)
 	}
 	exPath := filepath.Dir(ex)
-	if !strings.Contains(ex, "exe\\main.exe") {
+	if !strings.Contains(ex, "exe\\main.exe") && !strings.Contains(ex, "___go_build_main_go.exe") {
 		os.Chdir(exPath)
 	}
 	log.Println(`本项目仅作为免费的网络研究使用，
@@ -85,11 +88,11 @@ func main() {
 			log.Printf("学号%v 每日一报错误", user.Name)
 			log.Println(err)
 		}
-		if CONF.TmrOutReport {
+		if user.TmrOutReport {
 			log.Printf("离校申请ON")
 			// 离校申请
 			tmrlient := &tmrreport.TmrOutClient{Client: client}
-			err = tmrlient.ReportTmrOut()
+			err = tmrlient.ReportTmrOut(user.ChuXiaoReason, user.AddressQu, user.AddressDetails)
 			if err != nil {
 				log.Printf("学号%v 离校申请错误", user.Name)
 				log.Println(err)

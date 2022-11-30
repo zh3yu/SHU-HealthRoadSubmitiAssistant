@@ -2,6 +2,13 @@
 Users:
    - name: "75421307"
      password: UhI4d0hy
+     TmrOutReport: true
+     ChuXiaoReason : "出校理由"
+     AddressQu: "宝山区 上海的区 建议宝山区 其他未测试"
+     AddressDetails : "详细地址，详细到街道"
    - name: "90004561"
      password: X2jRjN2m
-TmrOutReport: true
+     TmrOutReport: false
+     ChuXiaoReason : ""
+     AddressQu: ""
+     AddressDetails : ""

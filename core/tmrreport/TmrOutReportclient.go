@@ -100,6 +100,9 @@ type PostTmrReportInfo struct {
 	ViewState      string
 	Fstatetemplate *F_STATE_LXSQ
 	HeSJCinfo      *HeSJCinfo
+	ChuXiaoReason  string
+	AddressQu      string
+	AddressDetails string
 }
 
 func (s *PostTmrReportInfo) GetKvs() map[string]string {
@@ -112,14 +115,14 @@ func (s *PostTmrReportInfo) GetKvs() map[string]string {
 	kvs["persinfo$SuoZXQ"] = s.CurrentCampus + "校区"
 	kvs["persinfo$ChuXRQ"] = cntime.NowCN().Add(24 * time.Hour).Format("2006-01-02")
 	kvs["persinfo$YuanYin"] = "其他原因"
-	kvs["persinfo$TeSYY_QiTa"] = "因事外出"
+	kvs["persinfo$TeSYY_QiTa"] = s.ChuXiaoReason
 	kvs["persinfo$ddlSheng$Value"] = "上海"
 	kvs["persinfo$ddlSheng"] = "上海"
 	kvs["persinfo$ddlShi$Value"] = "上海市"
 	kvs["persinfo$ddlShi"] = "上海市"
-	kvs["persinfo$ddlXian$Value"] = "宝山区"
-	kvs["persinfo$ddlXian"] = "宝山区"
-	kvs["persinfo$XiangXDZ"] = "大场镇"
+	kvs["persinfo$ddlXian$Value"] = s.AddressQu
+	kvs["persinfo$ddlXian"] = s.AddressQu
+	kvs["persinfo$XiangXDZ"] = s.AddressDetails
 	kvs["persinfo$DangTHX"] = "是"
 	kvs["persinfo_ctl00_Collapsed"] = "false"
 	kvs["persinfo_P_HeSJC_Collapsed"] = "false"
@@ -175,7 +178,7 @@ func (s *TmrOutClient) CheakTmrOut() bool {
 	HTML := string(body)
 	return strings.Contains(HTML, fmt.Sprintf("日期：%s", t.Format("2006-01-02")))
 }
-func (s *TmrOutClient) ReportTmrOut() error {
+func (s *TmrOutClient) ReportTmrOut(ChuXiaoReason string, AddressQu string, AddressDetails string) error {
 	if s.CheakTmrOut() {
 		log.Println("当天的离校申请已提交，不需要再次申请")
 		return nil
@@ -190,7 +193,8 @@ func (s *TmrOutClient) ReportTmrOut() error {
 	if err != nil {
 		return err
 	}
-	PRI := &PostTmrReportInfo{CurrentCampus: CurrentCampus, ViewState: view_state, Fstatetemplate: s.GetFstatelxsqtemplate(), HeSJCinfo: HeSJCInfo}
+
+	PRI := &PostTmrReportInfo{CurrentCampus: CurrentCampus, ViewState: view_state, Fstatetemplate: s.GetFstatelxsqtemplate(), HeSJCinfo: HeSJCInfo, ChuXiaoReason: ChuXiaoReason, AddressQu: AddressQu, AddressDetails: AddressDetails}
 	kvs := PRI.GetKvs()
 	Addmultipartkvs(bw, kvs)
 	bw.Close()
