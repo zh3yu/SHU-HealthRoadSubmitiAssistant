@@ -1,3 +1,7 @@
+
+# 上海大学已经解封，健康之路系统已经关闭。
+# 此项目停止维护，祝大家生活愉快。
+
 # SHU-HealthRoadSubmitiAssistant
 上海大学健康之路提交助手，该项目参考 [@BlueFisher](https://github.com/BlueFisher/SHU-selfreport) 在该项目的基础上，用go做了重构，增加了申请第二天离校的功能。
 
